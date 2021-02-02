@@ -64,6 +64,36 @@ def aeio_to_senc(aeio):
     return s if not too_long else invalid_input
 
 
+def square(not_empty, aeio, true):
+    a = e = i = o = False
+    if not_empty:
+        if aeio == 'A':
+            if true:
+                a = i = True
+            else:
+                e = i = "logically undetermined"
+                o = True
+        elif aeio == 'E':
+            if true:
+                e = o = True
+            else:
+                a = o = "logically undetermined"
+                i = True
+        elif aeio == 'I':
+            if true:
+                i = True
+                a = o = "logically undetermined"
+            else:
+                e = o = True
+        else:
+            if true:
+                e = i = "logically undetermined"
+            else:
+                a = i = True
+        corner = {"A": a, "E": e, "I": i, "O": o}
+        return corner
+
+
 exit = False
 while not exit:
     print("\nWhich type of question you are answering?")
