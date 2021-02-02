@@ -162,4 +162,4 @@ while not exit:
     elif q_type == "EXIT":
         exit = True
     else:
-        print("Invalid input. ")
+        print("Invalid input.")
