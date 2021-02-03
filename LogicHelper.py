@@ -271,7 +271,7 @@ def square(not_empty, aeio, true):
         contradictory = {'A': 'O', 'E': 'I', 'I': 'E', 'O': 'A'}
         contradictory_corner = contradictory[aeio]
         for i in contradictory.keys():
-            contradictory[i] = "logically undetermined" if i != contradictory_corner else not true
+            contradictory[i] = "logically undetermined" if i != contradictory_corner and i != aeio else not true if i == contradictory_corner else true
         return contradictory
 
 
