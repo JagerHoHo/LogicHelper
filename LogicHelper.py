@@ -278,7 +278,7 @@ def square(not_empty, aeio, true):
 exit = False
 while not exit:
     print("\nWhich type of question you are answering?")
-    print("A: Categorical Syllogism(The Venn Diagram Method) 定言三段論(范氏圖解法)")
+    print("A: Categorical Syllogism (The Venn Diagram Method) 定言三段論(范氏圖解法)")
     print("B: The Venn Diagram a specific standard form 特定標準式的范氏圖")
     print("C: Square of Opposition 四角對當關係")
     print("D: Standard form (AEIO) to sentence 標準式轉句子")
