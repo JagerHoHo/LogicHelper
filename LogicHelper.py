@@ -1,6 +1,25 @@
+def c_part():
+    existential_import = input("With Existential Import? (YES/NO): ").upper()
+    if existential_import in ["YES", "NO"]:
+        existential_import = True if existential_import == "YES" else False
+        aeio = input("Input your statement (AEIO): ").upper().strip()
+        if aeio not in ["A", "E", "I", "O"] or len(aeio) > 1:
+            print("Invalid input")
+        else:
+            value = input("True or False (T/F): ").upper().strip()
+            if value not in ["T", "F"]:
+                print("Invalid input")
+            else:
+                value = True if value == "T" else False
+                for keys, values in square(existential_import, aeio, value).items():
+                    print(keys, values)
+    else:
+        print("Invalid input")
+
+
 def d_part():
     aeio = aeio_to_senc(
-        input("Input your standard form(e.g. AAA1/AOI4): ").upper())
+        input("Input your standard form(e.g. AAA1/AOI4): ").upper().strip())
     for index, sentence in enumerate(aeio):
         if index == 2:
             print("----------------")
@@ -118,7 +137,7 @@ while not exit:
     print("D: AEIO to sentence 標準式轉句子")
     print("Input EXIT to 離開")
 
-    q_type = input("I am answering: ").upper()
+    q_type = input("I am answering: ").upper().strip()
 
     if q_type == "A":
         print(
@@ -195,8 +214,7 @@ while not exit:
     elif q_type == "B":
         print("隨緣更新")
     elif q_type == "C":
-        existential_import = input("With Existential Import? (YES/NO)").upper()
-        print(square(False, 'A', True))
+        c_part()
     elif q_type == "D":
         d_part()
     elif q_type == "EXIT":
