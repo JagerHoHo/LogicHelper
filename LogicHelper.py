@@ -55,15 +55,22 @@ def a_part():
     ]
     if standard_form in valid_set:
         validity = "Valid, the Venn diagram contains all the information of the conclusion."
+    venn = find_venn(standard_form)
     print("standard_form: " + standard_form)
+    for key, value in venn.items():
+        if key < 8:
+            print("Area " + str(key) + ":" + value, end=", ")
+        else:
+            print("Area " + str(key) + ":" + value)
     print("P = " + p)
     print("M = " + m)
     print("S = " + s)
     print(validity)
 
 
-def b_part():
-    print("隨緣更新")
+def part_b():
+    aeio = input("Input your standard_form (e.g. AAA1/AIO2): ").upper()
+    find_venn(aeio)
 
 
 def c_part():
@@ -114,6 +121,58 @@ def findterms(index, arg_type, argument):
         end_of_first -= 1
     first = " ".join(argument[index][1:end_of_first])
     return first, sec
+
+
+def find_venn(aeio):
+    venn = {x+1: "Non-shaded" for x in range(8)}
+    if aeio[0] == 'A':
+        if aeio[3] in ["1", "3"]:
+            venn[5] = venn[3] = "Shaded"
+        else:
+            venn[4] = venn[2] = "Shaded"
+    elif aeio[0] == 'E':
+        venn[7] = venn[6] = "Shaded"
+    elif aeio[0] == 'I':
+        if venn[6] != "Shaded":
+            venn[6] = "X"
+        if venn[7] != "Shaded":
+            venn[7] = "X"
+    else:
+        if aeio[3] in ["1", "3"]:
+            if venn[5] != "Shaded":
+                venn[5] = "X"
+            if venn[3] != "Shaded":
+                venn[3] = "X"
+        else:
+            if venn[4] != "Shaded":
+                venn[4] = "X"
+            if venn[2] != "Shaded":
+                venn[2] = "X"
+
+    if aeio[1] == 'A':
+        if aeio[3] in ["3", "4"]:
+            venn[6] = venn[3] = "Shaded"
+        else:
+            venn[1] = venn[4] = "Shaded"
+    elif aeio[1] == 'E':
+        venn[5] = venn[7] = "Shaded"
+    elif aeio[1] == 'I':
+        if venn[5] != "Shaded":
+            venn[5]
+        if venn[7] != "Shaded":
+            venn[7] = "X"
+    else:
+        if aeio[3] in ["3", "4"]:
+            if venn[6] != "Shaded":
+                venn[6] = "X"
+            if venn[3] != "Shaded":
+                venn[3] = "X"
+        else:
+            if venn[1] != "Shaded":
+                venn[1] = "X"
+            if venn[4] != "Shaded":
+                venn[4] = "X"
+    return(venn)
 
 
 def aeio_to_senc(aeio):
@@ -210,7 +269,7 @@ while not exit:
     if q_type == "A":
         a_part()
     elif q_type == "B":
-        b_part()
+        find_venn("AEO1")
     elif q_type == "C":
         c_part()
     elif q_type == "D":
