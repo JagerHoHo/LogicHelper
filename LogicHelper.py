@@ -21,50 +21,26 @@ def a_part():
     s, p = findterms(2, arg_type, argument)
     p1_first, p1_sec = findterms(0, arg_type, argument)
     p2 = [*findterms(1, arg_type, argument)]
+
     try:
         m = {p1_first, p1_sec}.intersection(p2).pop()
     except:
         print("No M has been found.")
         return
-    m_is_before_verb = [True, True]
 
-    if p in argument[0]:
-        p1_position, p2_position = 0, 1
-    else:
-        p1_position, p2_position = 1, 0
-        arg_type[0], arg_type[1] = arg_type[1], arg_type[0]
-
-    m_is_before_verb[p1_position] = True if p1_first == m else False
-    m_is_before_verb[p2_position] = True if p2[0] == m else False
-
-    Figure = {
-        (True, True): 3,
-        (False, False): 2,
-        (True, False): 1,
-        (False, True): 4
-    }
-
-    figure = str(Figure[tuple(m_is_before_verb)])
-
-    standard_form = ''.join(
-        arg_type[0][0] + arg_type[1][0] + arg_type[2][0] + figure)
-    validity = "Invalid, the Venn diagram does not contain all the information of the conclusion."
-    valid_set = [
-        "AAA1", "EAE1", "AEE2", "EAE2", "AEE4", "AII1", "AII3", "IAI3",
-        "IAI4", "EIO1", "AOO2", "EIO2", "EIO3", "OAO3", "EIO3"
-    ]
-    if standard_form in valid_set:
-        validity = "Valid, the Venn diagram contains all the information of the conclusion."
+    standard_form = find_stdform(p, argument, arg_type, p1_first, p2, m)
+    validity = find_validity(standard_form)
     venn = find_venn(standard_form)
+
+    print("P = " + p)
+    print("M = " + m)
+    print("S = " + s)
     print("standard_form: " + standard_form)
     for key, value in venn.items():
         if key < 8:
             print("Area " + str(key) + ":" + value, end=", ")
         else:
             print("Area " + str(key) + ":" + value)
-    print("P = " + p)
-    print("M = " + m)
-    print("S = " + s)
     print(validity)
 
 
@@ -121,6 +97,43 @@ def findterms(index, arg_type, argument):
         end_of_first -= 1
     first = " ".join(argument[index][1:end_of_first])
     return first, sec
+
+
+def find_stdform(p, argument, arg_type, p1_first, p2, m):
+    m_is_before_verb = [True, True]
+
+    if p in argument[0]:
+        p1_position, p2_position = 0, 1
+    else:
+        p1_position, p2_position = 1, 0
+        arg_type[0], arg_type[1] = arg_type[1], arg_type[0]
+
+    m_is_before_verb[p1_position] = True if p1_first == m else False
+    m_is_before_verb[p2_position] = True if p2[0] == m else False
+
+    Figure = {
+        (True, True): 3,
+        (False, False): 2,
+        (True, False): 1,
+        (False, True): 4
+    }
+
+    figure = str(Figure[tuple(m_is_before_verb)])
+
+    standard_form = ''.join(
+        arg_type[0][0] + arg_type[1][0] + arg_type[2][0] + figure)
+    return standard_form
+
+
+def find_validity(standard_form):
+    validity = "Invalid, the Venn diagram does not contain all the information of the conclusion."
+    valid_set = [
+        "AAA1", "EAE1", "AEE2", "EAE2", "AEE4", "AII1", "AII3", "IAI3",
+        "IAI4", "EIO1", "AOO2", "EIO2", "EIO3", "OAO3", "EIO3"
+    ]
+    if standard_form in valid_set:
+        validity = "Valid, the Venn diagram contains all the information of the conclusion."
+    return validity
 
 
 def find_venn(aeio):
