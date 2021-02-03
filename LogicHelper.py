@@ -32,8 +32,8 @@ def a_part():
     validity = find_validity(standard_form)
     venn = find_venn(standard_form)
 
-    print("P = " + p)
-    print("M = " + m)
+    print("P = " + p, end=", ")
+    print("M = " + m, end=", ")
     print("S = " + s)
     print("standard_form: " + standard_form)
     for key, value in venn.items():
