@@ -1,7 +1,8 @@
 def a_part():
-    print("Do not input the So in the conclusion. Words like all, no, some, not, is, are should be in lowercase.")
-    print("If they appear more than one time, only the one with logical usefulness shuold be in lowercase")
-    print("make the one without logical usefulness fully capital like all cat are things that ARE cute")
+    print("\nDo not input the So in the conclusion. Words like all, no, some, not, is, are should be in lowercase.")
+    print("If they appear more than one time, only the one with logical usefulness shuold be in lowercase.")
+    print("Make the one without logical usefulness fully capital like all cat are things that ARE cute")
+    print("No Punctuation should be inputted")
     argument = []
     arg_part = ["premise 1", "premise 2", "conclusion"]
     arg_type = []
@@ -59,6 +60,10 @@ def a_part():
     print("M = " + m)
     print("S = " + s)
     print(validity)
+
+
+def b_part():
+    print("隨緣更新")
 
 
 def c_part():
@@ -205,7 +210,7 @@ while not exit:
     if q_type == "A":
         a_part()
     elif q_type == "B":
-        print("隨緣更新")
+        b_part()
     elif q_type == "C":
         c_part()
     elif q_type == "D":
