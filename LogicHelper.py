@@ -69,8 +69,9 @@ def c_part():
                 print("Invalid input")
             else:
                 value = True if value == "T" else False
-                for keys, values in square(existential_import, aeio, value).items():
-                    print(keys, values)
+                theSquare, relations = square(existential_import, aeio, value)
+                for keys, values in theSquare.items():
+                    print(keys, values, "because they are", relations[keys])
     else:
         print("Invalid input")
 
@@ -239,8 +240,21 @@ def aeio_to_senc(aeio):
     return s if not too_long else invalid_input
 
 
+def setRelations(relations, relation, a, e, i, o):
+    relations["A"] = relation[a]
+    relations["E"] = relation[e]
+    relations["I"] = relation[i]
+    relations["O"] = relation[o]
+
+
 def square(not_empty, aeio, true):
     if not_empty:
+        relations = {"A": "", "E": "", "I": "", "O": ""}
+        relation = ["self",
+                    "contradictories",
+                    "contraries",
+                    "subcontraries",
+                    "subalternates"]
         a = e = i = o = False
         if aeio == 'A':
             if true:
@@ -248,25 +262,30 @@ def square(not_empty, aeio, true):
             else:
                 e = i = "logically undetermined"
                 o = True
+            setRelations(relations, relation, 0, 2, 4, 1)
         elif aeio == 'E':
             if true:
                 e = o = True
             else:
                 a = o = "logically undetermined"
                 i = True
+            setRelations(relations, relation, 2, 0, 1, 4)
         elif aeio == 'I':
             if true:
                 i = True
                 a = o = "logically undetermined"
             else:
                 e = o = True
+            setRelations(relations, relation, 4, 1, 0, 3)
         else:
             if true:
+                o = True
                 e = i = "logically undetermined"
             else:
                 a = i = True
+            setRelations(relations, relation, 1, 4, 3, 0)
         corner = {"A": a, "E": e, "I": i, "O": o}
-        return corner
+        return corner, relations
     else:
         contradictory = {'A': 'O', 'E': 'I', 'I': 'E', 'O': 'A'}
         contradictory_corner = contradictory[aeio]
