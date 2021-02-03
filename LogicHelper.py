@@ -1,3 +1,12 @@
+def d_part():
+    aeio = aeio_to_senc(
+        input("Input your standard form(e.g. AAA1/AOI4): ").upper())
+    for index, sentence in enumerate(aeio):
+        if index == 2:
+            print("----------------")
+        print(sentence)
+
+
 def typefinder():
     if "all" in argument[temp_counter]:
         return ['A', "is"] if "is" in argument[temp_counter] else ['A', "are"]
@@ -92,6 +101,12 @@ def square(not_empty, aeio, true):
                 a = i = True
         corner = {"A": a, "E": e, "I": i, "O": o}
         return corner
+    else:
+        contradictory = {'A': 'O', 'E': 'I', 'I': 'E', 'O': 'A'}
+        contradictory_corner = contradictory[aeio]
+        for i in contradictory.keys():
+            contradictory[i] = "logically undetermined" if i != contradictory_corner else not true
+        return contradictory
 
 
 exit = False
@@ -181,14 +196,9 @@ while not exit:
         print("隨緣更新")
     elif q_type == "C":
         existential_import = input("With Existential Import? (YES/NO)").upper()
-        print("隨緣更新")
+        print(square(False, 'A', True))
     elif q_type == "D":
-        aeio = aeio_to_senc(
-            input("Input your standard form(e.g. AAA1/AOI4): ").upper())
-        for index, sentence in enumerate(aeio):
-            if index == 2:
-                print("----------------")
-            print(sentence)
+        d_part()
     elif q_type == "EXIT":
         exit = True
     else:
