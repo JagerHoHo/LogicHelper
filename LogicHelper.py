@@ -46,7 +46,7 @@ def a_part():
 
 
 def b_part():
-    aeio = input("Input your standard_form (e.g. AAA1/AIO2): ").upper()
+    aeio = input("Input your standard form (e.g. AAA1/AIO2): ").upper()
     venn = find_venn(aeio)
     print("For the placement of the areas, please refer to Lecture 2 ppt P.29")
     for key, value in venn.items():
@@ -278,10 +278,10 @@ def square(not_empty, aeio, true):
 exit = False
 while not exit:
     print("\nWhich type of question you are answering?")
-    print("A: Categorical Syllogism 定言三段論")
-    print("B: The Venn Diagram Method 范氏圖解法")
+    print("A: Categorical Syllogism(The Venn Diagram Method) 定言三段論(范氏圖解法)")
+    print("B: The Venn Diagram a specific standard form 特定標準式的范氏圖")
     print("C: Square of Opposition 四角對當關係")
-    print("D: AEIO to sentence 標準式轉句子")
+    print("D: Standard form (AEIO) to sentence 標準式轉句子")
     print("Input EXIT to 離開")
 
     q_type = input("I am answering: ").upper().strip()
