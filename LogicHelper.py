@@ -68,7 +68,7 @@ def a_part():
     print(validity)
 
 
-def part_b():
+def b_part():
     aeio = input("Input your standard_form (e.g. AAA1/AIO2): ").upper()
     find_venn(aeio)
 
@@ -269,7 +269,7 @@ while not exit:
     if q_type == "A":
         a_part()
     elif q_type == "B":
-        find_venn("AEO1")
+        b_part()
     elif q_type == "C":
         c_part()
     elif q_type == "D":
