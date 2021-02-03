@@ -161,8 +161,8 @@ def aeio_to_senc(aeio):
 
 
 def square(not_empty, aeio, true):
-    a = e = i = o = False
     if not_empty:
+        a = e = i = o = False
         if aeio == 'A':
             if true:
                 a = i = True
