@@ -36,6 +36,7 @@ def a_part():
     print("M = " + m, end=", ")
     print("S = " + s)
     print("standard_form: " + standard_form)
+    print("For the placement of the areas, please refer to Lecture 2 ppt P.29")
     for key, value in venn.items():
         if key < 8:
             print("Area " + str(key) + ":" + value, end=", ")
@@ -46,7 +47,13 @@ def a_part():
 
 def b_part():
     aeio = input("Input your standard_form (e.g. AAA1/AIO2): ").upper()
-    find_venn(aeio)
+    venn = find_venn(aeio)
+    print("For the placement of the areas, please refer to Lecture 2 ppt P.29")
+    for key, value in venn.items():
+        if key < 8:
+            print("Area " + str(key) + ":" + value, end=", ")
+        else:
+            print("Area " + str(key) + ":" + value)
 
 
 def c_part():
@@ -171,7 +178,7 @@ def find_venn(aeio):
         venn[5] = venn[7] = "Shaded"
     elif aeio[1] == 'I':
         if venn[5] != "Shaded":
-            venn[5]
+            venn[5] = "X"
         if venn[7] != "Shaded":
             venn[7] = "X"
     else:
