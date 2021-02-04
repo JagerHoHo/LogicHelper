@@ -304,10 +304,12 @@ def square(not_empty, aeio, true):
         return corner, relations
     else:
         contradictory = {'A': 'O', 'E': 'I', 'I': 'E', 'O': 'A'}
+        relations = {"A": "", "E": "", "I": "", "O": ""}
         contradictory_corner = contradictory[aeio]
         for i in contradictory.keys():
             contradictory[i] = "logically undetermined" if i != contradictory_corner and i != aeio else not true if i == contradictory_corner else true
-        return contradictory
+            relations[i] = "logically undetermined" if i != contradictory_corner and i != aeio else "contradictories" if i == contradictory_corner else "self"
+        return contradictory, relations
 
 
 def reverse_sen(sen):
