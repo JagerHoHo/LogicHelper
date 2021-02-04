@@ -85,6 +85,12 @@ def d_part():
         print(sentence)
 
 
+def e_part():
+    sen = input(
+        "Input your sentence without \"it is not that case that\" : ").strip().split()
+    reverse_sen(sen)
+
+
 def typefinder(argument, temp_counter):
     if "all" in argument[temp_counter]:
         return ['A', "is"] if "is" in argument[temp_counter] else ['A', "are"]
@@ -96,12 +102,12 @@ def typefinder(argument, temp_counter):
         return ['I', "is"] if "is" in argument[temp_counter] else ['I', "are"]
 
 
-def findterms(index, arg_type, argument):
+def findterms(index, arg_type, argument, *args):
     verb = arg_type[index][1]
     start_of_sec = argument[index].index(verb) + 1
     sec = " ".join(argument[index][start_of_sec:])
     end_of_first = argument[index].index(verb)
-    if arg_type[index][0] == 'O':
+    if arg_type[index][0] == 'O' and not args:
         end_of_first -= 1
     first = " ".join(argument[index][1:end_of_first])
     return first, sec
@@ -196,7 +202,7 @@ def find_venn(aeio):
     return(venn)
 
 
-def aeio_to_senc(aeio):
+def aeio_to_senc(aeio, *args):
     s = []
     term1 = term2 = logic_word1 = logic_word2 = ""
     invalid_input = ["The character", "", "is not accepted"]
@@ -208,18 +214,23 @@ def aeio_to_senc(aeio):
         if i not in ["A", "E", "I", "O"]:
             invalid_input[1] = i
             return invalid_input
-    if not aeio[3].isdigit():
+    if not args and not aeio[3].isdigit():
         invalid_input[1] = aeio[3] + " is not a digit which"
         return invalid_input
-    for i in range(3):
+    times = 3 if not args else 1
+    for i in range(times):
         if aeio[i] == "A":
             logic_word1 = "All"
         elif aeio[i] == "E":
             logic_word1 = "No"
         else:
             logic_word1 = "Some"
-        logic_word2 = "are" if aeio[i] != "O" else "are not"
-        if i == 0:
+        if not args:
+            logic_word2 = "are" if aeio[i] != "O" else "are not"
+        else:
+            logic_word2 = args[2] if aeio[i] not in ["O", "A"] else args[2] + \
+                " not" if aeio[i] != "A" else ""
+        if not args and i == 0:
             if int(aeio[3]) in [1, 3]:
                 term1 = "M"
                 term2 = "P"
@@ -236,6 +247,8 @@ def aeio_to_senc(aeio):
         else:
             term1 = "S"
             term2 = "P"
+        if args:
+            term1, term2 = args[0], args[1]
         s.append(" ".join([logic_word1, term1, logic_word2, term2]))
     return s if not too_long else invalid_input
 
@@ -294,6 +307,15 @@ def square(not_empty, aeio, true):
         return contradictory
 
 
+def reverse_sen(sen):
+    type = typefinder([sen], 0)
+    contradictory = {'A': 'O', 'E': 'I', 'I': 'E', 'O': 'A'}
+    term1, term2 = findterms(0, [type], [sen], True)
+    aeio = contradictory[type[0]]
+    sen = " ".join(aeio_to_senc(aeio, term1, term2, type[1]))
+    print(" ".join(sen.split()))
+
+
 exit = False
 while not exit:
     print("\nWhich type of question you are answering?")
@@ -301,6 +323,7 @@ while not exit:
     print("B: The Venn Diagram a specific standard form 特定標準式的范氏圖")
     print("C: Square of Opposition 四角對當關係")
     print("D: Standard form (AEIO) to sentence 標準式轉句子")
+    print("E: Reverse the sentence (it is not that case that) 相反句子")
     print("Input EXIT to 離開")
 
     q_type = input("I am answering: ").upper().strip()
@@ -313,6 +336,8 @@ while not exit:
         c_part()
     elif q_type == "D":
         d_part()
+    elif q_type == "E":
+        e_part()
     elif q_type == "EXIT":
         exit = True
     else:
