@@ -69,9 +69,25 @@ def c_part():
                 print("Invalid input")
             else:
                 value = True if value == "T" else False
-                theSquare, relations = square(existential_import, aeio, value)
-                for keys, values in theSquare.items():
-                    print(keys, values, "because they are", relations[keys])
+                form = input(
+                    "In AEIO form or in sentence form?(AEIO/SEN): ").upper().strip()
+                if form not in ["AEIO", "SEN"]:
+                    print("Invalid input")
+                else:
+                    theSquare, relations = square(
+                        existential_import, aeio, value)
+                    if form == "AEIO":
+                        for keys, values in theSquare.items():
+                            print(keys, values, "because they are",
+                                  relations[keys])
+                    else:
+                        sen = {"A": "\"All a are b\" is",
+                               "E": "\"No a are b\" is",
+                               "I": "\"Some a are b\" is",
+                               "O": "\"Some a are not b\" is"}
+                        for keys, values in theSquare.items():
+                            print(sen[keys], values, "because they are",
+                                  relations[keys])
     else:
         print("Invalid input")
 
