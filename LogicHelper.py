@@ -1,8 +1,12 @@
 def a_part():
     print("\nDo not input the So in the conclusion. Words like all, no, some, not, is, are should be in lowercase.")
-    print("If they appear more than one time, only the one with logical usefulness shuold be in lowercase.")
+    print("If they appear more than one time, only the one with logical usefulness should be in lowercase.")
     print("Make the one without logical usefulness fully capital like all cat are things that ARE cute")
     print("No Punctuation should be inputted")
+    print("不要輸入結論中的So。具有邏輯意義的的字(all, no, some, not, is, are)都應該用小寫。")
+    print("如果出現多於一次，則只有具有邏輯意義的字小寫。")
+    print("讓沒有邏輯的那個大寫(如:all cat are things that ARE cute)。")
+    print("不要輸入標點符號。")
     argument = []
     arg_part = ["premise 1", "premise 2", "conclusion"]
     arg_type = []
