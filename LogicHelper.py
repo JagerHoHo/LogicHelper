@@ -88,7 +88,10 @@ def d_part():
 def e_part():
     sen = input(
         "Input your sentence without \"it is not that case that\" : ").strip().split()
-    reverse_sen(sen)
+    if sen[0] in ["all", "no", "some"] and ("is" in sen or "are" in sen):
+        reverse_sen(sen)
+    else:
+        print("Invalid input")
 
 
 def typefinder(argument, temp_counter):
