@@ -248,9 +248,18 @@ def find_venn(aeio):
     return(venn)
 
 
+def aeio_to_sen(mood, index):
+    if index == 0:
+        return ("M", "P") if int(mood) in [1, 3] else ("P", "M")
+    elif index == 1:
+        return ("S", "M") if int(mood) in [1, 2] else ("M", "S")
+    else:
+        return ("S", "P")
+
+
 def aeio_to_senc(aeio, *args):
     s = []
-    term1 = term2 = logic_word1 = logic_word2 = ""
+    mood = aeio[3]
     times = 3 if not args else 1
     for i in range(times):
         if aeio[i] == "A":
@@ -264,25 +273,10 @@ def aeio_to_senc(aeio, *args):
         else:
             logic_word2 = args[2] if aeio[i] not in ["O", "A"] else args[2] + \
                 " not" if aeio[i] != "A" else ""
-        if not args and i == 0:
-            if int(aeio[3]) in [1, 3]:
-                term1 = "M"
-                term2 = "P"
-            else:
-                term1 = "P"
-                term2 = "M"
-        elif i == 1:
-            if int(aeio[3]) in [1, 2]:
-                term1 = "S"
-                term2 = "M"
-            else:
-                term1 = "M"
-                term2 = "S"
-        else:
-            term1 = "S"
-            term2 = "P"
         if args:
             term1, term2 = args[0], args[1]
+        else:
+            term1, term2 = aeio_to_sen(mood, i)
         s.append(" ".join([logic_word1, term1, logic_word2, term2]))
     return s
 
