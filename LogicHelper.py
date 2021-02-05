@@ -263,24 +263,20 @@ def find_first_word(char):
 
 def aeio_to_senc(aeio, *args):
     s = []
-    if not args:
+    if len(aeio) > 2:
         mood = aeio[3]
-    times = 3 if not args else 1
-    # for i in range(times):
+    else:
+        mood = 2
     for i, char in enumerate(aeio):
         if i != 3:
             logic_word1 = find_first_word(char)
+            logic_word2 = "are" if aeio[i] != "O" else "are not"
             if not args:
-                logic_word2 = "are" if aeio[i] != "O" else "are not"
-            else:
-                logic_word2 = args[2] if aeio[i] not in ["O", "A"] else args[2] + \
-                    " not" if aeio[i] != "A" else ""
-            if args:
-                term1, term2 = args[0], args[1]
-            else:
                 term1, term2 = aeio_to_sen(mood, i)
+            else:
+                term1, term2 = args[0], args[1]
             s.append(" ".join([logic_word1, term1, logic_word2, term2]))
-    return s
+    return s if len(s) != 1 else s[0]
 
 
 def setRelations(relations, relation, a, e, i, o):
@@ -341,11 +337,10 @@ def square(not_empty, aeio, true):
 
 def reverse_sen(sen):
     type = typefinder([sen], 0)
+    term1, term2 = findterms(0, [type], [sen])
     contradictory = {'A': 'O', 'E': 'I', 'I': 'E', 'O': 'A'}
-    term1, term2 = findterms(0, [type], [sen], True)
     aeio = contradictory[type[0]]
-    sen = " ".join(aeio_to_senc(aeio, term1, term2, type[1]))
-    print(" ".join(sen.split()))
+    print(aeio_to_senc(aeio, term1, term2))
 
 
 exit = False
