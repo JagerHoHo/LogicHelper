@@ -141,12 +141,12 @@ def typefinder(argument, temp_counter):
         return ['I', "is"] if "is" in argument[temp_counter] else ['I', "are"]
 
 
-def findterms(index, arg_type, argument, *args):
+def findterms(index, arg_type, argument):
     verb = arg_type[index][1]
     start_of_sec = argument[index].index(verb) + 1
     sec = " ".join(argument[index][start_of_sec:])
     end_of_first = argument[index].index(verb)
-    if arg_type[index][0] == 'O' and not args:
+    if arg_type[index][0] == 'O':
         end_of_first -= 1
     first = " ".join(argument[index][1:end_of_first])
     return first, sec
