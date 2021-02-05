@@ -257,27 +257,29 @@ def aeio_to_sen(mood, index):
         return ("S", "P")
 
 
+def find_first_word(char):
+    return "All" if char == 'A' else "No" if char == 'E' else "Some"
+
+
 def aeio_to_senc(aeio, *args):
     s = []
-    mood = aeio[3]
+    if not args:
+        mood = aeio[3]
     times = 3 if not args else 1
-    for i in range(times):
-        if aeio[i] == "A":
-            logic_word1 = "All"
-        elif aeio[i] == "E":
-            logic_word1 = "No"
-        else:
-            logic_word1 = "Some"
-        if not args:
-            logic_word2 = "are" if aeio[i] != "O" else "are not"
-        else:
-            logic_word2 = args[2] if aeio[i] not in ["O", "A"] else args[2] + \
-                " not" if aeio[i] != "A" else ""
-        if args:
-            term1, term2 = args[0], args[1]
-        else:
-            term1, term2 = aeio_to_sen(mood, i)
-        s.append(" ".join([logic_word1, term1, logic_word2, term2]))
+    # for i in range(times):
+    for i, char in enumerate(aeio):
+        if i != 3:
+            logic_word1 = find_first_word(char)
+            if not args:
+                logic_word2 = "are" if aeio[i] != "O" else "are not"
+            else:
+                logic_word2 = args[2] if aeio[i] not in ["O", "A"] else args[2] + \
+                    " not" if aeio[i] != "A" else ""
+            if args:
+                term1, term2 = args[0], args[1]
+            else:
+                term1, term2 = aeio_to_sen(mood, i)
+            s.append(" ".join([logic_word1, term1, logic_word2, term2]))
     return s
 
 
