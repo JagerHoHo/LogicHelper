@@ -51,6 +51,13 @@ def a_part():
 
 def b_part():
     aeio = input("Input your standard form (e.g. AAA1/AIO2): ").upper()
+    for i, char in enumerate(aeio):
+        if i != 3 and char not in ["A", "E", "I", "O"]:
+            print(char + " is not a valid input")
+            return
+        elif i == 3 and (not char.isdigit() or int(char) > 4):
+            print(char + " is not a valid input")
+            return
     venn = find_venn(aeio)
     print("For the placement of the areas, please refer to Lecture 2 ppt P.29")
     for key, value in venn.items():
