@@ -50,9 +50,14 @@ def a_part():
 
 
 def b_part():
-    aeio = input("Input your standard form (e.g. AAA1/AIO2): ").upper()
+    aeio = input("Input your standard form(e.g. AAA1/AOI4): ").upper().strip()
     if check_aeio(aeio):
+        sen = aeio_to_senc(aeio)
         venn = find_venn(aeio)
+        for index, sentence in enumerate(sen):
+            if index == 2:
+                print("----------------")
+            print(sentence)
         print("For the placement of the areas, please refer to Lecture 2 ppt P.29")
         for key, value in venn.items():
             if key < 8:
@@ -99,17 +104,6 @@ def c_part():
 
 
 def d_part():
-    aeio = input("Input your standard form(e.g. AAA1/AOI4): ").upper().strip()
-    if check_aeio(aeio):
-        sen = aeio_to_senc(aeio)
-        for index, sentence in enumerate(sen):
-            if index == 2:
-                print("----------------")
-            print(sentence)
-        print(find_validity(aeio))
-
-
-def e_part():
     sen = input(
         "Input your sentence without \"it is not that case that\" : ").strip().split()
     if sen[0] in ["all", "no", "some"] and ("is" in sen or "are" in sen):
@@ -348,10 +342,9 @@ exit = False
 while not exit:
     print("\nWhich type of question you are answering?")
     print("A: Categorical Syllogism (The Venn Diagram Method) 定言三段論(范氏圖解法)")
-    print("B: The Venn Diagram a specific standard form 特定標準式的范氏圖")
+    print("B: The Venn Diagram a specific standard form with sentence 特定標準式的范氏圖加句子")
     print("C: Square of Opposition 四角對當關係")
-    print("D: Standard form (AEIO) to sentence 標準式轉句子")
-    print("E: Reverse the sentence (it is not that case that) 相反句子")
+    print("D: Reverse the sentence (it is not that case that) 相反句子")
     print("Input EXIT to 離開")
 
     q_type = input("I am answering: ").upper().strip()
@@ -364,8 +357,6 @@ while not exit:
         c_part()
     elif q_type == "D":
         d_part()
-    elif q_type == "E":
-        e_part()
     elif q_type == "EXIT":
         exit = True
     else:
