@@ -342,7 +342,7 @@ exit = False
 while not exit:
     print("\nWhich type of question you are answering?")
     print("A: Categorical Syllogism (The Venn Diagram Method) 定言三段論(范氏圖解法)")
-    print("B: The Venn Diagram a specific standard form with sentence 特定標準式的范氏圖加句子")
+    print("B: The Venn Diagram and sentence of a specific standard form 特定標準式的范氏圖加句子")
     print("C: Square of Opposition 四角對當關係")
     print("D: Reverse the sentence (it is not that case that) 相反句子")
     print("Input EXIT to 離開")
