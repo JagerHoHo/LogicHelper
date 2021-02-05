@@ -101,11 +101,12 @@ def c_part():
 def d_part():
     aeio = input("Input your standard form(e.g. AAA1/AOI4): ").upper().strip()
     if check_aeio(aeio):
-        aeio = aeio_to_senc(aeio)
-        for index, sentence in enumerate(aeio):
+        sen = aeio_to_senc(aeio)
+        for index, sentence in enumerate(sen):
             if index == 2:
                 print("----------------")
             print(sentence)
+        print(find_validity(aeio))
 
 
 def e_part():
