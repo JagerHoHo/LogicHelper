@@ -16,7 +16,7 @@ def a_part():
         argument.append(
             input("Input your " + arg_part[temp_counter] + ": ").strip().split())
         if argument[temp_counter][0] in ["all", "no", "some"] and ("is" in argument[temp_counter] or "are" in argument[temp_counter]):
-            arg_type.append(typefinder(argument, temp_counter))
+            arg_type.append(typefinder(argument[temp_counter]))
             temp_counter += 1
         else:
             print("Invalid input found in your " + arg_part[temp_counter])
@@ -130,15 +130,15 @@ def check_aeio(aeio):
     return True
 
 
-def typefinder(argument, temp_counter):
-    if "all" in argument[temp_counter]:
-        return ['A', "is"] if "is" in argument[temp_counter] else ['A', "are"]
-    if "no" in argument[temp_counter]:
-        return ['E', "is"] if "is" in argument[temp_counter] else ['E', "are"]
-    if "not" in argument[temp_counter]:
+def typefinder(argument):
+    if "all" in argument:
+        return ['A', "is"] if "is" in argument else ['A', "are"]
+    if "no" in argument:
+        return ['E', "is"] if "is" in argument else ['E', "are"]
+    if "not" in argument:
         return ['O', "not"]
     else:
-        return ['I', "is"] if "is" in argument[temp_counter] else ['I', "are"]
+        return ['I', "is"] if "is" in argument else ['I', "are"]
 
 
 def findterms(index, arg_type, argument):
@@ -336,7 +336,7 @@ def square(not_empty, aeio, true):
 
 
 def reverse_sen(sen):
-    type = typefinder([sen], 0)
+    type = typefinder(sen)
     term1, term2 = findterms(0, [type], [sen])
     contradictory = {'A': 'O', 'E': 'I', 'I': 'E', 'O': 'A'}
     aeio = contradictory[type[0]]
