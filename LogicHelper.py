@@ -98,9 +98,9 @@ def c_part():
 
 
 def d_part():
-    aeio = aeio_to_senc(
-        input("Input your standard form(e.g. AAA1/AOI4): ").upper().strip())
+    aeio = input("Input your standard form(e.g. AAA1/AOI4): ").upper().strip()
     if check_aeio(aeio):
+        aeio_to_senc(aeio)
         for index, sentence in enumerate(aeio):
             if index == 2:
                 print("----------------")
@@ -243,18 +243,6 @@ def find_venn(aeio):
 def aeio_to_senc(aeio, *args):
     s = []
     term1 = term2 = logic_word1 = logic_word2 = ""
-    invalid_input = ["The character", "", "is not accepted"]
-    too_long = False
-    if len(aeio) > 4:
-        too_long = True
-        invalid_input[0] = "String longer that 4 characters"
-    for i in aeio[:-2]:
-        if i not in ["A", "E", "I", "O"]:
-            invalid_input[1] = i
-            return invalid_input
-    if not args and not aeio[3].isdigit():
-        invalid_input[1] = aeio[3] + " is not a digit which"
-        return invalid_input
     times = 3 if not args else 1
     for i in range(times):
         if aeio[i] == "A":
@@ -288,7 +276,7 @@ def aeio_to_senc(aeio, *args):
         if args:
             term1, term2 = args[0], args[1]
         s.append(" ".join([logic_word1, term1, logic_word2, term2]))
-    return s if not too_long else invalid_input
+    return s
 
 
 def setRelations(relations, relation, a, e, i, o):
