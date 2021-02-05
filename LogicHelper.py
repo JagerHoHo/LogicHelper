@@ -59,6 +59,7 @@ def b_part():
                 print("Area " + str(key) + ":" + value, end=", ")
             else:
                 print("Area " + str(key) + ":" + value)
+        print(find_validity(aeio))
 
 
 def c_part():
