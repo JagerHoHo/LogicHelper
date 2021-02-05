@@ -51,20 +51,14 @@ def a_part():
 
 def b_part():
     aeio = input("Input your standard form (e.g. AAA1/AIO2): ").upper()
-    for i, char in enumerate(aeio):
-        if i != 3 and char not in ["A", "E", "I", "O"]:
-            print(char + " is not a valid input")
-            return
-        elif i == 3 and (not char.isdigit() or int(char) > 4):
-            print(char + " is not a valid input")
-            return
-    venn = find_venn(aeio)
-    print("For the placement of the areas, please refer to Lecture 2 ppt P.29")
-    for key, value in venn.items():
-        if key < 8:
-            print("Area " + str(key) + ":" + value, end=", ")
-        else:
-            print("Area " + str(key) + ":" + value)
+    if check_aeio(aeio):
+        venn = find_venn(aeio)
+        print("For the placement of the areas, please refer to Lecture 2 ppt P.29")
+        for key, value in venn.items():
+            if key < 8:
+                print("Area " + str(key) + ":" + value, end=", ")
+            else:
+                print("Area " + str(key) + ":" + value)
 
 
 def c_part():
@@ -106,10 +100,11 @@ def c_part():
 def d_part():
     aeio = aeio_to_senc(
         input("Input your standard form(e.g. AAA1/AOI4): ").upper().strip())
-    for index, sentence in enumerate(aeio):
-        if index == 2:
-            print("----------------")
-        print(sentence)
+    if check_aeio(aeio):
+        for index, sentence in enumerate(aeio):
+            if index == 2:
+                print("----------------")
+            print(sentence)
 
 
 def e_part():
@@ -119,6 +114,19 @@ def e_part():
         reverse_sen(sen)
     else:
         print("Invalid input")
+
+
+def check_aeio(aeio):
+    for i, char in enumerate(aeio):
+        if len(aeio) > 4:
+            print("Invalid input")
+        elif i != 3 and char not in ["A", "E", "I", "O"]:
+            print(char + " is not a valid input")
+            return False
+        elif i == 3 and (not char.isdigit() or int(char) > 4):
+            print(char + " is not a valid input")
+            return False
+    return True
 
 
 def typefinder(argument, temp_counter):
