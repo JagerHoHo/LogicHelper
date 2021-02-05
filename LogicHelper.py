@@ -188,22 +188,21 @@ def find_validity(standard_form):
     return validity
 
 
-def find_venn(aeio):
-    venn = {x+1: "Non-shaded" for x in range(8)}
-    if aeio[0] == 'A':
-        if aeio[3] in ["1", "3"]:
+def find_major(aeio, venn, mood):
+    if aeio == 'A':
+        if mood in ["1", "3"]:
             venn[5] = venn[3] = "Shaded"
         else:
             venn[4] = venn[2] = "Shaded"
-    elif aeio[0] == 'E':
+    elif aeio == 'E':
         venn[7] = venn[6] = "Shaded"
-    elif aeio[0] == 'I':
+    elif aeio == 'I':
         if venn[6] != "Shaded":
             venn[6] = "X"
         if venn[7] != "Shaded":
             venn[7] = "X"
     else:
-        if aeio[3] in ["1", "3"]:
+        if mood in ["1", "3"]:
             if venn[5] != "Shaded":
                 venn[5] = "X"
             if venn[3] != "Shaded":
@@ -214,20 +213,22 @@ def find_venn(aeio):
             if venn[2] != "Shaded":
                 venn[2] = "X"
 
-    if aeio[1] == 'A':
-        if aeio[3] in ["3", "4"]:
+
+def find_minor(aeio, venn, mood):
+    if aeio == 'A':
+        if mood in ["3", "4"]:
             venn[6] = venn[3] = "Shaded"
         else:
             venn[1] = venn[4] = "Shaded"
-    elif aeio[1] == 'E':
+    elif aeio == 'E':
         venn[5] = venn[7] = "Shaded"
-    elif aeio[1] == 'I':
+    elif aeio == 'I':
         if venn[5] != "Shaded":
             venn[5] = "X"
         if venn[7] != "Shaded":
             venn[7] = "X"
     else:
-        if aeio[3] in ["3", "4"]:
+        if mood in ["3", "4"]:
             if venn[6] != "Shaded":
                 venn[6] = "X"
             if venn[3] != "Shaded":
@@ -237,6 +238,12 @@ def find_venn(aeio):
                 venn[1] = "X"
             if venn[4] != "Shaded":
                 venn[4] = "X"
+
+
+def find_venn(aeio):
+    venn = {x+1: "Non-shaded" for x in range(8)}
+    find_major(aeio[0], venn, aeio[3])
+    find_minor(aeio[1], venn, aeio[3])
     return(venn)
 
 
