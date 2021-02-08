@@ -177,7 +177,7 @@ def find_validity(standard_form):
     validity = "Invalid, the Venn diagram does not contain all the information of the conclusion."
     valid_set = [
         "AAA1", "EAE1", "AEE2", "EAE2", "AEE4", "AII1", "AII3", "IAI3",
-        "IAI4", "EIO1", "AOO2", "EIO2", "EIO3", "OAO3", "EIO3"
+        "IAI4", "EIO1", "AOO2", "EIO2", "EIO3", "OAO3", "EIO4"
     ]
     if standard_form in valid_set:
         validity = "Valid, the Venn diagram contains all the information of the conclusion."
