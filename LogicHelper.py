@@ -332,10 +332,12 @@ def square(not_empty, aeio, true):
 
 def reverse_sen(sen):
     type = typefinder(sen)
+    print("The sentence is a type " + type[0] + " sentence")
     term1, term2 = findterms(0, [type], [sen])
     contradictory = {'A': 'O', 'E': 'I', 'I': 'E', 'O': 'A'}
     aeio = contradictory[type[0]]
-    print(aeio_to_senc(aeio, term1, term2))
+    print("The reversed from of the sentence is: " +
+          aeio_to_senc(aeio, term1, term2))
 
 
 exit = False
