@@ -14,12 +14,14 @@ def a_part():
 
     while len(argument) < 3:
         argument.append(
-            input("Input your " + arg_part[temp_counter] + ": ").strip().split())
+            input(f"Input your {arg_part[temp_counter]}: ").strip().split()
+        )
+
         if argument[temp_counter][0] in ["all", "no", "some"] and ("is" in argument[temp_counter] or "are" in argument[temp_counter]):
             arg_type.append(typefinder(argument[temp_counter]))
             temp_counter += 1
         else:
-            print("Invalid input found in your " + arg_part[temp_counter])
+            print(f"Invalid input found in your {arg_part[temp_counter]}")
             argument.pop(temp_counter)
 
     s, p = findterms(2, arg_type, argument)
@@ -36,16 +38,16 @@ def a_part():
     validity = find_validity(standard_form)
     venn = find_venn(standard_form)
 
-    print("P = " + p, end=", ")
-    print("M = " + m, end=", ")
-    print("S = " + s)
-    print("standard_form: " + standard_form)
+    print(f"P = {p}", end=", ")
+    print(f"M = {m}", end=", ")
+    print(f"S = {s}")
+    print(f"standard_form: {standard_form}")
     print("For the placement of the areas, please refer to Lecture 2 ppt P.29")
     for key, value in venn.items():
         if key < 8:
-            print("Area " + str(key) + ":" + value, end=", ")
+            print(f"Area {str(key)}:{value}", end=", ")
         else:
-            print("Area " + str(key) + ":" + value)
+            print(f"Area {str(key)}:{value}")
     print(validity)
 
 
@@ -61,16 +63,16 @@ def b_part():
         print("For the placement of the areas, please refer to Lecture 2 ppt P.29")
         for key, value in venn.items():
             if key < 8:
-                print("Area " + str(key) + ":" + value, end=", ")
+                print(f"Area {str(key)}:{value}", end=", ")
             else:
-                print("Area " + str(key) + ":" + value)
+                print(f"Area {str(key)}:{value}")
         print(find_validity(aeio))
 
 
 def c_part():
     existential_import = input("With Existential Import? (YES/NO): ").upper()
-    if existential_import in ["YES", "NO"]:
-        existential_import = True if existential_import == "YES" else False
+    if existential_import == "YES" or existential_import == "NO":
+        existential_import = existential_import == "YES"
         aeio = input("Input your statement (AEIO): ").upper().strip()
         if aeio not in ["A", "E", "I", "O"] or len(aeio) > 1:
             print("Invalid input")
@@ -79,7 +81,7 @@ def c_part():
             if value not in ["T", "F"]:
                 print("Invalid input")
             else:
-                value = True if value == "T" else False
+                value = value == "T"
                 form = input(
                     "In AEIO form or in sentence form?(AEIO/SEN): ").upper().strip()
                 if form not in ["AEIO", "SEN"]:
@@ -117,10 +119,10 @@ def check_aeio(aeio):
         if len(aeio) > 4:
             print("Invalid input")
         elif i != 3 and char not in ["A", "E", "I", "O"]:
-            print(char + " is not a valid input")
+            print(f"{char} is not a valid input")
             return False
         elif i == 3 and (not char.isdigit() or int(char) > 4):
-            print(char + " is not a valid input")
+            print(f"{char} is not a valid input")
             return False
     return True
 
@@ -156,8 +158,8 @@ def find_stdform(p, argument, arg_type, p1_first, p2, m):
         p1_position, p2_position = 1, 0
         arg_type[0], arg_type[1] = arg_type[1], arg_type[0]
 
-    m_is_before_verb[p1_position] = True if p1_first == m else False
-    m_is_before_verb[p2_position] = True if p2[0] == m else False
+    m_is_before_verb[p1_position] = p1_first == m
+    m_is_before_verb[p2_position] = p2[0] == m
 
     Figure = {
         (True, True): 3,
@@ -168,20 +170,19 @@ def find_stdform(p, argument, arg_type, p1_first, p2, m):
 
     figure = str(Figure[tuple(m_is_before_verb)])
 
-    standard_form = ''.join(
-        arg_type[0][0] + arg_type[1][0] + arg_type[2][0] + figure)
-    return standard_form
+    return ''.join(arg_type[0][0] + arg_type[1][0] + arg_type[2][0] + figure)
 
 
 def find_validity(standard_form):
-    validity = "Invalid, the Venn diagram does not contain all the information of the conclusion."
     valid_set = [
         "AAA1", "EAE1", "AEE2", "EAE2", "AEE4", "AII1", "AII3", "IAI3",
         "IAI4", "EIO1", "AOO2", "EIO2", "EIO3", "OAO3", "EIO4"
     ]
-    if standard_form in valid_set:
-        validity = "Valid, the Venn diagram contains all the information of the conclusion."
-    return validity
+    return (
+        "Valid, the Venn diagram contains all the information of the conclusion."
+        if standard_form in valid_set
+        else "Invalid, the Venn diagram does not contain all the information of the conclusion."
+    )
 
 
 def find_major(aeio, venn, mood):
@@ -197,17 +198,16 @@ def find_major(aeio, venn, mood):
             venn[6] = "X"
         if venn[7] != "Shaded":
             venn[7] = "X"
+    elif mood in ["1", "3"]:
+        if venn[5] != "Shaded":
+            venn[5] = "X"
+        if venn[3] != "Shaded":
+            venn[3] = "X"
     else:
-        if mood in ["1", "3"]:
-            if venn[5] != "Shaded":
-                venn[5] = "X"
-            if venn[3] != "Shaded":
-                venn[3] = "X"
-        else:
-            if venn[4] != "Shaded":
-                venn[4] = "X"
-            if venn[2] != "Shaded":
-                venn[2] = "X"
+        if venn[4] != "Shaded":
+            venn[4] = "X"
+        if venn[2] != "Shaded":
+            venn[2] = "X"
 
 
 def find_minor(aeio, venn, mood):
@@ -223,17 +223,16 @@ def find_minor(aeio, venn, mood):
             venn[5] = "X"
         if venn[7] != "Shaded":
             venn[7] = "X"
+    elif mood in ["3", "4"]:
+        if venn[6] != "Shaded":
+            venn[6] = "X"
+        if venn[3] != "Shaded":
+            venn[3] = "X"
     else:
-        if mood in ["3", "4"]:
-            if venn[6] != "Shaded":
-                venn[6] = "X"
-            if venn[3] != "Shaded":
-                venn[3] = "X"
-        else:
-            if venn[1] != "Shaded":
-                venn[1] = "X"
-            if venn[4] != "Shaded":
-                venn[4] = "X"
+        if venn[1] != "Shaded":
+            venn[1] = "X"
+        if venn[4] != "Shaded":
+            venn[4] = "X"
 
 
 def find_venn(aeio):
@@ -245,9 +244,9 @@ def find_venn(aeio):
 
 def aeio_to_sen(mood, index):
     if index == 0:
-        return ("M", "P") if int(mood) in [1, 3] else ("P", "M")
+        return ("M", "P") if int(mood) in {1, 3} else ("P", "M")
     elif index == 1:
-        return ("S", "M") if int(mood) in [1, 2] else ("M", "S")
+        return ("S", "M") if int(mood) in {1, 2} else ("M", "S")
     else:
         return ("S", "P")
 
@@ -258,18 +257,12 @@ def find_first_word(char):
 
 def aeio_to_senc(aeio, *args):
     s = []
-    if len(aeio) > 2:
-        mood = aeio[3]
-    else:
-        mood = 2
+    mood = aeio[3] if len(aeio) > 2 else 2
     for i, char in enumerate(aeio):
         if i != 3:
             logic_word1 = find_first_word(char)
             logic_word2 = "are" if aeio[i] != "O" else "are not"
-            if not args:
-                term1, term2 = aeio_to_sen(mood, i)
-            else:
-                term1, term2 = args[0], args[1]
+            term1, term2 = (args[0], args[1]) if args else aeio_to_sen(mood, i)
             s.append(" ".join([logic_word1, term1, logic_word2, term2]))
     return s if len(s) != 1 else s[0]
 
@@ -282,8 +275,8 @@ def setRelations(relations, relation, a, e, i, o):
 
 
 def square(not_empty, aeio, true):
+    relations = {"A": "", "E": "", "I": "", "O": ""}
     if not_empty:
-        relations = {"A": "", "E": "", "I": "", "O": ""}
         relation = ["self",
                     "contradictories",
                     "contraries",
@@ -322,17 +315,30 @@ def square(not_empty, aeio, true):
         return corner, relations
     else:
         contradictory = {'A': 'O', 'E': 'I', 'I': 'E', 'O': 'A'}
-        relations = {"A": "", "E": "", "I": "", "O": ""}
         contradictory_corner = contradictory[aeio]
-        for i in contradictory.keys():
-            contradictory[i] = "logically undetermined" if i != contradictory_corner and i != aeio else not true if i == contradictory_corner else true
-            relations[i] = "logically undetermined" if i != contradictory_corner and i != aeio else "contradictories" if i == contradictory_corner else "self"
+        for i in contradictory:
+            contradictory[i] = (
+                "logically undetermined"
+                if i not in [contradictory_corner, aeio]
+                else not true
+                if i == contradictory_corner
+                else true
+            )
+
+            relations[i] = (
+                "logically undetermined"
+                if i not in [contradictory_corner, aeio]
+                else "contradictories"
+                if i == contradictory_corner
+                else "self"
+            )
+
         return contradictory, relations
 
 
 def reverse_sen(sen):
     type = typefinder(sen)
-    print("The sentence is a type " + type[0] + " sentence")
+    print(f"The sentence is a type {type[0]} sentence")
     term1, term2 = findterms(0, [type], [sen])
     contradictory = {'A': 'O', 'E': 'I', 'I': 'E', 'O': 'A'}
     aeio = contradictory[type[0]]
